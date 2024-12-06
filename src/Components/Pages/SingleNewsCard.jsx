@@ -2,8 +2,8 @@ import React from 'react';
 import { CiBookmark } from "react-icons/ci";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { IoMdEye } from "react-icons/io";
+import { Link } from 'react-router-dom';
 const SingleNewsCard = ({ singleNews }) => {
-  console.log(singleNews);
   const {
     category_id,
     rating: { number, badge },
@@ -16,10 +16,10 @@ const SingleNewsCard = ({ singleNews }) => {
   } = singleNews;
   return (
     <div>
-      <div className='w-full bg-white rounded-lg shadow-md mb-5 p-6'>
+      <div className='w-full bg-white rounded-lg shadow-md mb-10 p-6'>
         <div className='flex items-center mb-4 justify-between'>
           <div className='flex'>
-            <img className='w-10 h-10  rounded-full mr-3' src={img} alt="" />
+            <img className='w-10 h-10  rounded-full mr-3' src={thumbnail_url} alt="" />
             <div>
               <p className='font-semibold'>{singleNews.author.name}</p>
               <p>{singleNews.author.published_date}</p>
@@ -34,10 +34,10 @@ const SingleNewsCard = ({ singleNews }) => {
         {/* Thubnail */}
         <div>
           <h2 className='mt-6 mb-3 font-bold text-2xl'>{singleNews.title}</h2>
-          <div className='w-[650px]'>
-            <img className=' h-[400px]  w-full mb-6' src={thumbnail_url} alt="" />
+          <div className='md:w-[650px]'>
+            <img className=' h-[400px]  w-full mb-6' src={image_url} alt="" />
             <p>{singleNews.details}</p>
-            <button className='text-red-500 mt-2'>Read More </button>
+            <Link to={`/user/${singleNews._id}`} className='text-red-500 mt-2'>Read More </Link>
           </div>
         </div>
 
