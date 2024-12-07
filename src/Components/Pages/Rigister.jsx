@@ -1,14 +1,20 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContest } from '../../assets/Provider/AuthProvider';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContest } from '../MainLayout/Provider/AuthProvider';
 
 const Rigister = () => {
-  const { createUser, setUser } = useContext(AuthContest);
+  const navigate = useNavigate();
+  const { createUser, setUser, updateauser } = useContext(AuthContest);
+  const [err, setError] = useState({});
   const handleRegister = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
 
     const name = form.get('name');
+    if (name.length < 5) {
+      setError({ ...err, name: "must be more the 5 character long " })
+      return;
+    }
     const email = form.get('email');
     const photo = form.get('photo');
     const password = form.get('password');
@@ -17,10 +23,17 @@ const Rigister = () => {
       .then(res => {
         const data = res.user;
         setUser(data);
+        updateauser({ displayName: name, photoURL: photo })
+          .then(() => {
+            navigate('/')
+          })
+          .catch(err => {
+            console.log(err);
+          })
 
       })
       .catch(error => {
-        const errorCode = error.code;
+        setError({ ...err, })
       })
   }
 
@@ -34,6 +47,13 @@ const Rigister = () => {
               <span className="label-text">Name</span>
             </label>
             <input type="text" name='name' placeholder="name" className="input input-bordered" required />
+            {
+              err.name && (
+                <label className='lebel text-xs text-red-500 mt-2'>
+                  {err.name}
+                </label>
+              )
+            }
           </div>
           <div className="form-control">
             <label className="label">
@@ -57,7 +77,7 @@ const Rigister = () => {
             </label>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary">Register</button>
           </div>
         </form>
         <p className='text-center font-semibold'>Already have an acount <Link className='text-purple-600' to='/auth/login'>Login</Link></p>

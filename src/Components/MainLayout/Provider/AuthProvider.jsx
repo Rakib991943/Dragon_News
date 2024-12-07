@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../../Components/Firebase/fireabse.config";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import app from "../../Firebase/fireabse.config";
 
 export const AuthContest = createContext()
 const auth = getAuth(app);
@@ -20,6 +20,9 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
 
   }
+  const updateauser = (updateData) => {
+    return updateProfile(auth.currentUser, updateData);
+  }
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   // console.log(user);
@@ -30,6 +33,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     logInUser,
     loading,
+    updateauser,
   }
 
   useEffect(() => {

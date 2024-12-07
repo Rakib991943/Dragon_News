@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logoIcon from '../assets/user.png'
 import { useContext } from "react";
-import { AuthContest } from "../assets/Provider/AuthProvider";
+import { AuthContest } from "./MainLayout/Provider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContest);
   return (
@@ -22,7 +22,21 @@ const Navbar = () => {
         <div className="login">
 
           <div className="flex gap-2">
-            <img src={logoIcon} alt="" />
+            <div className="md:mr-6">
+              {
+                user && user?.email ? <div>
+                  <img className="w-[100px]  rounded-full h-[100px]" src={user?.photoURL} alt="" />
+                  <p className="text-2xl font-bold mt-3">UerName:{user?.displayName}</p>
+                </div> : (
+                  <img
+                    src=''
+                  ></img>
+                )
+              }
+            </div>
+            <div className="w-[40px]">
+              <img className="w-full" src={logoIcon} alt="" />
+            </div>
             {
               user && user?.email ? <button onClick={logOut} className="btn btn-neutral">Logout</button> : <Link to='/auth/login' className="btn btn-neutral">Login</Link>
             }

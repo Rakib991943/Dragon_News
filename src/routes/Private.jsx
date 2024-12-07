@@ -1,5 +1,5 @@
 import React, { Children, useContext } from 'react';
-import { AuthContest } from '../assets/Provider/AuthProvider';
+import { AuthContest } from '../Components/MainLayout/Provider/AuthProvider';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const Private = ({ children }) => {

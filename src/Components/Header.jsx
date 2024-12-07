@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../assets/logo.png'
 import moment from 'moment/moment';
 const Header = () => {
+  console.log(import.meta.env.VITE_a);
   return (
     <div className='flex flex-col justify-center items-center font-poppins '>
       <div className='flex justify-center mt-4 '>
